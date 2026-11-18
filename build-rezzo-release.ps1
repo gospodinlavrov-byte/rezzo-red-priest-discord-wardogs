@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$version = 'rrp-1.0.0'
+$version = 'rrp-1.0.4'
 $name = "Rezzo-Red-Priest-Discord-WARDOGS-$version"
 $output = Join-Path $PSScriptRoot 'dist'
 $package = Join-Path $output $name
@@ -31,3 +31,4 @@ $zipHash = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerIn
 "$zipHash  $name.zip" | Set-Content -LiteralPath (Join-Path $output "$name.zip.sha256") -Encoding ASCII
 Write-Output "Created: $archive"
 Write-Output "SHA256: $zipHash"
+

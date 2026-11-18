@@ -1,50 +1,9 @@
 # Rezzo Red Priest — Discord + WARDOGS
 
-Пользовательская конфигурация **Rezzo Red Priest**, версия **rrp-1.0.0**, на основе [Flowseal/zapret-discord-youtube 1.10.2](https://github.com/Flowseal/zapret-discord-youtube/releases/tag/1.10.2).
+Версия rrp-1.0.4 от 18 ноября 2026 года. Комплект для Windows x64 на базе [Flowseal 1.10.4](https://github.com/Flowseal/zapret-discord-youtube/releases/tag/1.10.4), winws v72.9.
 
-Проверенный набор правил для загрузки и голоса Discord, авторизации WARDOGS и игровых серверов на UDP 4192 без VPN. Автор конфигурации и подбора правил — Rezzo Red Priest. Это независимая сборка, не официальный релиз Flowseal или разработчиков игры. Исходное авторство и лицензии сохранены.
+Скачайте полный ZIP из [релиза](https://github.com/gospodinlavrov-byte/rezzo-red-priest-discord-wardogs/releases/tag/rrp-1.0.4), распакуйте в отдельную папку, закройте предыдущий экземпляр Запрета и запустите DISCORD + WARDOGS.bat от администратора. Ожидаются 7 профилей и сообщение capture is started. Закройте окно, чтобы остановить программу.
 
-## Запуск и выключение
+Голос Discord проверен на сервере с TCP 8443, для которого отключена специальная обработка discord.media. На проверенном сервере с TCP 443 сохранялся тайм-аут TLS. В комплект включены отдельное правило обновления Discord, восстановленное правило авторизации WARDOGS и игровые UDP-порты 4192–4193. Проверка матча WARDOGS на этой версии пока не подтверждена.
 
-1. Скачайте готовый ZIP из **Releases** и полностью распакуйте в отдельную папку.
-2. Остановите другие экземпляры Zapret, включая службу, если она установлена. Для проверки без VPN выключите VPN.
-3. Правый клик по **`DISCORD + WARDOGS.bat` → Запуск от имени администратора**.
-4. Дождитесь **5 user defined desync profiles** и **capture is started**. Оставьте окно открытым и запускайте Discord/WARDOGS.
-5. Для выключения закройте консольное окно этой сборки.
-
-Батник не устанавливает службу, не добавляет автозапуск и не меняет DNS, hosts или брандмауэр. Права администратора нужны WinDivert. Если защита блокирует файл, проверьте источник и контрольную сумму; не отключайте защиту Windows целиком.
-
-## Правила
-
-| Соединение | Обработка |
-| --- | --- |
-| Discord HTTPS, TCP 443 | `fake,fakedsplit` из `general (ALT)` для `discord.com`, `discord.gg`, `discordapp.com` и их поддоменов |
-| Discord voice, UDP 19294–19344 и 50000–50100 | Только распознаваемый Discord/STUN; штатный `ACTIVE_DISCORD_UDP.bin` |
-| WARDOGS HTTP/HTTPS, TCP 80/443 | `fake,fakedsplit` для доменов игры, Firstlook и Epic |
-| WARDOGS QUIC, UDP 443 | Доменные правила из `FAKE TLS AUTO ALT2` |
-| Игровые серверы, UDP 4192 | `fake`, 10 повторов, `any-protocol=1`, `cutoff=n2`, `ACTIVE_GAME_UDP.bin`; любой IP |
-
-Домены WARDOGS: `wardogs.com` (включая `community.wardogs.com`), `bulkhead.com`, `team17.com`, `live.wardogs.bulkhead.pragmaengine.com`, `firstlook.gg`, `api.epicgames.dev`. `elytra.ac` исключён из доменных правил игры.
-
-Игровой обход ограничен **UDP 4192**, а не всем диапазоном `Game Filter TCP/UDP + IPSet any`. Динамические IP на этом порту не требуют обновления списка. Это фильтр по порту, не по процессу: другое приложение с UDP 4192 тоже попадёт под обработку.
-
-## Проверено и ограничения
-
-Проверено 13 сентября 2026 года на Windows с домашним проводным Билайном: Discord и голос в обе стороны; вход WARDOGS, стрельбище, список серверов, подключение к обычному серверу и игровой голос. Пользователь также подтвердил работу итогового батника с пятью профилями.
-
-Это результаты конкретного подключения, а не гарантия для всех провайдеров. UDP 4192 наблюдался у двух игровых адресов; серверы на других портах могут потребовать новых правил. Точная причина сетевого сбоя не установлена.
-
-Это не VPN: публичный IP не меняется, дополнительное шифрование не добавляется. YouTube этим специальным батником не настраивается. WinDivert не скрывается от античита; официального подтверждения совместимости и отсутствия риска санкций со стороны Elytra нет.
-
-В сообщениях о проблемах указывайте версию, тип подключения, провайдера, название сервера и текст ошибки. Не публикуйте токены, пароли, личные IP и необработанные сетевые дампы.
-
-## Авторы, исходники и лицензии
-
-- Основа: [Flowseal/zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube), тег `1.10.2`, commit `dfd8e613b099676cf2aa7b474ee5923801514dec`.
-- Движок: [bol-van/zapret](https://github.com/bol-van/zapret), MIT; используемый `winws` сообщает `v72.9`.
-- Драйвер: [basil00/WinDivert](https://github.com/basil00/WinDivert), LGPLv3/GPLv2 согласно upstream.
-- Используемые EXE/DLL/SYS и BIN не модифицированы и совпали по SHA-256 с официальным тегом Flowseal 1.10.2.
-- Оригинальная лицензия: [LICENSE.txt](LICENSE.txt); исходная документация: [README.upstream.md](README.upstream.md).
-- Авторские дополнения Rezzo Red Priest предоставляются по MIT: [LICENSE.REZZO.txt](LICENSE.REZZO.txt).
-
-Сборка ZIP: `powershell -NoProfile -File .\build-rezzo-release.ps1`. Архив формируется по явному списку файлов без тестов, журналов и локальных пользовательских настроек. Контрольные суммы помещаются внутрь и рядом с архивом.
+Исходные проекты: [Flowseal](https://github.com/Flowseal/zapret-discord-youtube), [bol-van/zapret](https://github.com/bol-van/zapret). См. LICENSE.txt, LICENSE.REZZO.txt и README.upstream.md.
